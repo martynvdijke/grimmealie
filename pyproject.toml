@@ -1,0 +1,20 @@
+[project]
+name = "grimmealie"
+version = "0.1.0"
+description = "Import recipes from Grimmory/BookLore ebooks into Mealie via screenshot capture"
+requires-python = ">=3.10"
+dependencies = [
+    "playwright>=1.40",
+    "httpx>=0.25",
+    "Pillow>=10.0",
+    "rich>=13.0",
+]
+
+[project.scripts]
+grimmealie = "grimmealie.cli:main"
+
+[tool.uv]
+package = true
+
+[dependency-groups]
+dev = ["pytest>=8"]
