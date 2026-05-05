@@ -172,7 +172,7 @@ async def _capture_loop(cfg, page, args, capture) -> None:
                         [str(p) for p in paths]  # type: ignore[arg-type]
                     )
                 con.print("  [green]✓[/] Recipe created!")
-                con.print(f"    {cfg.mealie_url}/recipe/{slug}")
+                con.print(f"    {cfg.mealie_url}/g/home/r/{slug}")
                 for p in paths:
                     try:
                         p.unlink(missing_ok=True)

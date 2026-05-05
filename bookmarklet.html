@@ -98,7 +98,7 @@
       const res=await fetch(u+'/api/recipes/create/image',{method:'POST',headers:{'Authorization':'Bearer '+k},body:fd});
       if(!res.ok)throw new Error(await res.text());
       const slug=await res.text();window.__gc=[];
-      alert('Recipe imported!\\n\\n'+u+'/recipe/'+slug);
+       alert('Recipe imported!\\n\\n'+u+'/g/home/r/'+slug);
     }catch(e){alert('Error: '+e.message);}
   })();
 })();`;
