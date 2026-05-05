@@ -17,14 +17,19 @@ class GrimmoryCapture:
 
     async def create_page(self, context: BrowserContext) -> Page:
         page = await context.new_page()
-        await page.set_viewport_size(self.viewport)
+        await page.set_viewport_size(self.viewport)  # type: ignore
         return page
 
-    async def login(self, context: BrowserContext, username: str, password: str) -> Page:
+    async def login(
+        self, context: BrowserContext, username: str, password: str
+    ) -> Page:
         page = await self.create_page(context)
         await page.goto(f"{self.base_url}/login", wait_until="networkidle")
         await page.wait_for_timeout(1000)
-        await page.fill('input[type="text"], input[name="username"], input[placeholder*="user"]', username)
+        await page.fill(
+            'input[type="text"], input[name="username"], input[placeholder*="user"]',
+            username,
+        )
         await page.fill('input[type="password"]', password)
         await page.click('button[type="submit"]')
         await page.wait_for_url("**/dashboard**", timeout=10000)
@@ -32,11 +37,16 @@ class GrimmoryCapture:
 
     async def open_book(self, context: BrowserContext, book_id: str | int) -> Page:
         page = await self.create_page(context)
-        await page.goto(f"{self.base_url}/ebook-reader/book/{book_id}", wait_until="domcontentloaded")
+        await page.goto(
+            f"{self.base_url}/ebook-reader/book/{book_id}",
+            wait_until="domcontentloaded",
+        )
         await page.wait_for_timeout(3000)
         return page
 
-    async def capture_screenshot(self, page: Page, output_path: str | Path, region: Region = "full") -> Path:
+    async def capture_screenshot(
+        self, page: Page, output_path: str | Path, region: Region = "full"
+    ) -> Path:
         path = Path(output_path)
         await page.screenshot(path=str(path), full_page=False)
         if region != "full":
@@ -47,6 +57,7 @@ class GrimmoryCapture:
 def _crop_region(path: Path, region: Region) -> None:
     try:
         from PIL import Image
+
         img = Image.open(path)
         w, h = img.size
         boxes = {

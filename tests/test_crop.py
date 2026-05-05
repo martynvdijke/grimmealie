@@ -23,12 +23,14 @@ def _check_crop(region: str, expected_w: int, expected_h: int, expected_color):
         img.save(out)
     else:
         img.save(src)
-        _crop_region(src, region)
+        _crop_region(src, region)  # type: ignore
         src.rename(out)
 
     assert out.exists()
     cropped = Image.open(out)
-    assert cropped.size == (expected_w, expected_h), f"{region}: got {cropped.size}, expected ({expected_w}, {expected_h})"
+    assert cropped.size == (expected_w, expected_h), (
+        f"{region}: got {cropped.size}, expected ({expected_w}, {expected_h})"
+    )
     assert cropped.getpixel((0, 0)) == expected_color, f"{region}: color mismatch"
     out.unlink()
     src.unlink(missing_ok=True)

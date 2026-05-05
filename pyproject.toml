@@ -17,4 +17,9 @@ grimmealie = "grimmealie.cli:main"
 package = true
 
 [dependency-groups]
-dev = ["pytest>=8"]
+dev = [
+    "pytest>=8",
+    "ruff>=0.5",
+    "invoke>=2.0",
+    "ty>=0.0.34",
+]

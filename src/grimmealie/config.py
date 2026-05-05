@@ -25,8 +25,12 @@ class Config:
                 cfg.mealie_key = data.get("mealie_key", cfg.mealie_key)
                 cfg.book_id = data.get("book_id", cfg.book_id)
                 cfg.grimmory_login = data.get("grimmory_login", cfg.grimmory_login)
-                cfg.grimmory_username = data.get("grimmory_username", cfg.grimmory_username)
-                cfg.grimmory_password = data.get("grimmory_password", cfg.grimmory_password)
+                cfg.grimmory_username = data.get(
+                    "grimmory_username", cfg.grimmory_username
+                )
+                cfg.grimmory_password = data.get(
+                    "grimmory_password", cfg.grimmory_password
+                )
             except (json.JSONDecodeError, OSError):
                 pass
         return cfg

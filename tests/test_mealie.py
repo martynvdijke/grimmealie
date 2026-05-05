@@ -17,7 +17,7 @@ def test_client_headers():
 @patch("grimmealie.mealie.httpx.Client")
 def test_create_recipe_from_images(mock_client_class):
     mock_resp = MagicMock()
-    mock_resp.text = "my-recipe-slug"
+    mock_resp.json.return_value = "my-recipe-slug"
     mock_resp.raise_for_status.return_value = None
 
     mock_ctx = MagicMock()
@@ -29,7 +29,7 @@ def test_create_recipe_from_images(mock_client_class):
     paths = [Path("/tmp/test.png")]
     Path("/tmp/test.png").write_bytes(b"fake png data")
 
-    slug = c.create_recipe_from_images(paths)
+    slug = c.create_recipe_from_images(paths)  # type: ignore
 
     assert slug == "my-recipe-slug"
     mock_ctx.post.assert_called_once()
@@ -62,7 +62,7 @@ def test_create_recipe_from_images_with_translate(mock_client_class):
 @patch("grimmealie.mealie.httpx.Client")
 def test_create_recipe_from_images_async(mock_client_class):
     mock_resp = MagicMock()
-    mock_resp.text = "slug"
+    mock_resp.json.return_value = "slug"
     mock_resp.raise_for_status.return_value = None
     mock_ctx = MagicMock()
     mock_ctx.__enter__.return_value = mock_ctx

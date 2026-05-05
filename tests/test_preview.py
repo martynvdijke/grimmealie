@@ -1,4 +1,3 @@
-from pathlib import Path
 from PIL import Image
 from grimmealie.preview import preview_image, _try_pillow_art, _terminal_width
 

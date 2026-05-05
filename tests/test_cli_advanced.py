@@ -1,4 +1,3 @@
-from pathlib import Path
 from PIL import Image
 from grimmealie.cli import _configured, _crop_from
 from grimmealie.config import Config

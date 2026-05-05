@@ -23,7 +23,9 @@ con = Console()
 
 def setup_logging(debug: bool) -> None:
     level = logging.DEBUG if debug else logging.INFO
-    log_format = "%(asctime)s [%(levelname)s] %(name)s: %(message)s" if debug else "%(message)s"
+    log_format = (
+        "%(asctime)s [%(levelname)s] %(name)s: %(message)s" if debug else "%(message)s"
+    )
     logging.basicConfig(level=level, format=log_format, datefmt="%H:%M:%S")
     if debug:
         logging.getLogger("httpx").setLevel(logging.DEBUG)
@@ -48,27 +50,43 @@ def _configured(cfg) -> bool:
 
 def _setup(cfg) -> None:
     con.print()
-    con.print(Panel(
-        "[bold cyan]Grimmealie[/] — import recipes from [bold]Grimmory[/] into [bold]Mealie[/]",
-        box=box.HEAVY,
-    ))
-    con.print(Panel(
-        "[bold yellow]Credentials stored in plain text[/]\n"
-        "Mealie API key and Grimmory password saved in [bold]grimmealie-config.json[/] "
-        "(gitignored — keep it secure).",
-        box=box.SQUARE,
-        border_style="yellow",
-    ))
+    con.print(
+        Panel(
+            "[bold cyan]Grimmealie[/] — import recipes from [bold]Grimmory[/] into [bold]Mealie[/]",
+            box=box.HEAVY,
+        )
+    )
+    con.print(
+        Panel(
+            "[bold yellow]Credentials stored in plain text[/]\n"
+            "Mealie API key and Grimmory password saved in [bold]grimmealie-config.json[/] "
+            "(gitignored — keep it secure).",
+            box=box.SQUARE,
+            border_style="yellow",
+        )
+    )
     con.print()
 
     cfg.grimmory_url = Prompt.ask("Grimmory URL", default=cfg.grimmory_url)
     cfg.mealie_url = Prompt.ask("Mealie URL", default=cfg.mealie_url)
-    cfg.mealie_key = Prompt.ask("Mealie API Key", default=mask(cfg.mealie_key) if cfg.mealie_key else "", password=True)
-    cfg.grimmory_login = Confirm.ask("Grimmory login required", default=cfg.grimmory_login)
+    cfg.mealie_key = Prompt.ask(
+        "Mealie API Key",
+        default=mask(cfg.mealie_key) if cfg.mealie_key else "",
+        password=True,
+    )
+    cfg.grimmory_login = Confirm.ask(
+        "Grimmory login required", default=cfg.grimmory_login
+    )
 
     if cfg.grimmory_login:
-        cfg.grimmory_username = Prompt.ask("Grimmory username", default=cfg.grimmory_username)
-        cfg.grimmory_password = Prompt.ask("Grimmory password", default=mask(cfg.grimmory_password) if cfg.grimmory_password else "", password=True)
+        cfg.grimmory_username = Prompt.ask(
+            "Grimmory username", default=cfg.grimmory_username
+        )
+        cfg.grimmory_password = Prompt.ask(
+            "Grimmory password",
+            default=mask(cfg.grimmory_password) if cfg.grimmory_password else "",
+            password=True,
+        )
 
     cfg.save()
     con.print("  [green]✓[/] Saved to grimmealie-config.json\n")
@@ -90,6 +108,7 @@ def _show_controls() -> None:
 
 def _crop_from(src: Path, dst: Path, region: str) -> None:
     from PIL import Image
+
     img = Image.open(src)
     w, h = img.size
     boxes = {
@@ -141,10 +160,18 @@ async def _capture_loop(cfg, page, args, capture) -> None:
 
             con.print(f"  [cyan]→[/] Uploading {len(paths)} image(s) to Mealie...")
             try:
-                with Progress(SpinnerColumn(), TextColumn("[progress.description]{task.description}"), transient=True) as progress:
+                with Progress(
+                    SpinnerColumn(),
+                    TextColumn("[progress.description]{task.description}"),
+                    transient=True,
+                ) as progress:
                     progress.add_task("Sending...", total=None)
-                    slug = MealieClient(cfg.mealie_url, cfg.mealie_key).create_recipe_from_images(paths)
-                con.print(f"  [green]✓[/] Recipe created!")
+                    slug = MealieClient(
+                        cfg.mealie_url, cfg.mealie_key
+                    ).create_recipe_from_images(
+                        [str(p) for p in paths]  # type: ignore[arg-type]
+                    )
+                con.print("  [green]✓[/] Recipe created!")
                 con.print(f"    {cfg.mealie_url}/recipe/{slug}")
                 for p in paths:
                     try:
@@ -158,7 +185,10 @@ async def _capture_loop(cfg, page, args, capture) -> None:
 
         else:
             region_key = Prompt.ask(
-                "Crop", choices=["f", "t", "b", "l", "r"], default="f", show_choices=True
+                "Crop",
+                choices=["f", "t", "b", "l", "r"],
+                default="f",
+                show_choices=True,
             )
             region = REGION_MAP[region_key]
             ts = stamp()
@@ -176,7 +206,9 @@ async def _capture_loop(cfg, page, args, capture) -> None:
                 paths.append(crop_path)
                 if not args.no_preview:
                     preview_image(crop_path)
-                con.print(f"  [green]✓[/] Captured ({region}) → [dim]{crop_path.name}[/]  [dim](full saved: {full_path.name})[/]")
+                con.print(
+                    f"  [green]✓[/] Captured ({region}) → [dim]{crop_path.name}[/]  [dim](full saved: {full_path.name})[/]"
+                )
 
 
 async def run_interactive(args: argparse.Namespace) -> None:
@@ -202,7 +234,9 @@ async def run_interactive(args: argparse.Namespace) -> None:
 
         try:
             if cfg.grimmory_login and cfg.grimmory_username:
-                page = await capture.login(context, cfg.grimmory_username, cfg.grimmory_password)
+                page = await capture.login(
+                    context, cfg.grimmory_username, cfg.grimmory_password
+                )
 
             while True:
                 cfg.book_id = Prompt.ask("Book ID", default=cfg.book_id)
@@ -218,6 +252,7 @@ async def run_interactive(args: argparse.Namespace) -> None:
             con.print(f"  [red]✗[/] {e}")
             if args.debug:
                 import traceback
+
                 traceback.print_exc()
         finally:
             await browser.close()
@@ -226,9 +261,15 @@ async def run_interactive(args: argparse.Namespace) -> None:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Import recipes from Grimmory into Mealie")
-    parser.add_argument("--debug", "-d", action="store_true", help="Enable debug logging")
-    parser.add_argument("--no-preview", action="store_true", help="Disable terminal image preview")
+    parser = argparse.ArgumentParser(
+        description="Import recipes from Grimmory into Mealie"
+    )
+    parser.add_argument(
+        "--debug", "-d", action="store_true", help="Enable debug logging"
+    )
+    parser.add_argument(
+        "--no-preview", action="store_true", help="Disable terminal image preview"
+    )
 
     args, _ = parser.parse_known_args()
     setup_logging(args.debug)

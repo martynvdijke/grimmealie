@@ -35,7 +35,7 @@ def _try_pillow_art(path: Path) -> bool:
         aspect = img.height / img.width
         height = max(1, int(width * aspect * 0.5))
 
-        thumb = img.resize((width, height * 2), Image.NEAREST)
+        thumb = img.resize((width, height * 2), Image.NEAREST)  # type: ignore
 
         if thumb.mode != "RGB":
             thumb = thumb.convert("RGB")
@@ -45,8 +45,10 @@ def _try_pillow_art(path: Path) -> bool:
         for y in range(height):
             line = ""
             for x in range(width):
-                r1, g1, b1 = thumb.getpixel((x, y * 2))
-                r2, g2, b2 = thumb.getpixel((x, y * 2 + 1))
+                px1 = thumb.getpixel((x, y * 2))
+                px2 = thumb.getpixel((x, y * 2 + 1))
+                r1, g1, b1 = px1[0], px1[1], px1[2]  # type: ignore
+                r2, g2, b2 = px2[0], px2[1], px2[2]  # type: ignore
                 line += f"\033[38;2;{r1};{g1};{b1}m\033[48;2;{r2};{g2};{b2}m\u2580"
             lines.append(line + reset)
 
@@ -73,9 +75,12 @@ def _try_kitty(path: Path) -> bool:
         with open(path, "rb") as f:
             data = f.read()
         import base64
+
         encoded = base64.b64encode(data).decode()
         chunk_size = 4096
-        payloads = [encoded[i:i + chunk_size] for i in range(0, len(encoded), chunk_size)]
+        payloads = [
+            encoded[i : i + chunk_size] for i in range(0, len(encoded), chunk_size)
+        ]
         total = len(payloads)
         for i, chunk in enumerate(payloads):
             if i == 0:
