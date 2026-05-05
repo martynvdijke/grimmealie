@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/martynvdijke/grimmealie/compare/v1.0.2...v1.0.3) (2026-05-05)
+
+
+### Bug Fixes
+
+* improve image quality — Retina scale factor, device screenshot, LANCZOS preview ([3d92bc2](https://github.com/martynvdijke/grimmealie/commit/3d92bc217c2c6cc74eddc015c2c94fec910d7f78))
+
 ## [1.0.2](https://github.com/martynvdijke/grimmealie/compare/v1.0.1...v1.0.2) (2026-05-05)
 
 
