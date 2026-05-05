@@ -35,7 +35,7 @@ def _try_pillow_art(path: Path) -> bool:
         aspect = img.height / img.width
         height = max(1, int(width * aspect * 0.5))
 
-        thumb = img.resize((width, height * 2), Image.NEAREST)  # type: ignore
+        thumb = img.resize((width, height * 2), Image.LANCZOS)  # type: ignore
 
         if thumb.mode != "RGB":
             thumb = thumb.convert("RGB")

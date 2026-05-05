@@ -230,7 +230,7 @@ async def run_interactive(args: argparse.Namespace) -> None:
             headless=False,
             args=["--disable-blink-features=AutomationControlled"],
         )
-        context = await browser.new_context()
+        context = await browser.new_context(device_scale_factor=2)
 
         try:
             if cfg.grimmory_login and cfg.grimmory_username:

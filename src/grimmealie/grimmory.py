@@ -48,7 +48,7 @@ class GrimmoryCapture:
         self, page: Page, output_path: str | Path, region: Region = "full"
     ) -> Path:
         path = Path(output_path)
-        await page.screenshot(path=str(path), full_page=False)
+        await page.screenshot(path=str(path), full_page=False, scale="device")
         if region != "full":
             _crop_region(path, region)
         return path
