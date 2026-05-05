@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+screenshots/
+.bookmarklet_config.json
+grimmealie-config.json
+.pytest-cache/
+src/grimmealie.egg-info
