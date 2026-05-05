@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/martynvdijke/grimmealie/compare/v1.0.1...v1.0.2) (2026-05-05)
+
+
+### Bug Fixes
+
+* correct recipe URL path from /recipe/ to /g/home/r/ ([6e42b42](https://github.com/martynvdijke/grimmealie/commit/6e42b42605f1b66290195fad07fd077a06e99f14))
+
 ## [1.0.1](https://github.com/martynvdijke/grimmealie/compare/v1.0.0...v1.0.1) (2026-05-05)
 
 # 1.0.0 (2026-05-05)
