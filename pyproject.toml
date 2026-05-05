@@ -1,6 +1,6 @@
 [project]
 name = "grimmealie"
-version = "0.1.0"
+version = "1.0.0"
 description = "Import recipes from Grimmory/BookLore ebooks into Mealie via screenshot capture"
 requires-python = ">=3.10"
 dependencies = [
