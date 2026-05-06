@@ -14,8 +14,9 @@ from rich import box
 
 from .grimmory import GrimmoryCapture
 from .mealie import MealieClient
-from .config import Config
+from .config import Config, is_configured
 from .preview import preview_image
+from .bulk import run_bulk_upload
 
 log = logging.getLogger("grimmealie")
 con = Console()
@@ -45,7 +46,7 @@ REGION_MAP = {"f": "full", "t": "top", "b": "bottom", "l": "left", "r": "right"}
 
 
 def _configured(cfg) -> bool:
-    return bool(cfg.grimmory_url and cfg.mealie_url and cfg.mealie_key)
+    return is_configured(cfg)
 
 
 def _setup(cfg) -> None:
@@ -270,10 +271,19 @@ def main() -> None:
     parser.add_argument(
         "--no-preview", action="store_true", help="Disable terminal image preview"
     )
+    parser.add_argument(
+        "--bulk-upload",
+        action="store_true",
+        help="Bulk upload existing screenshots to Mealie",
+    )
 
     args, _ = parser.parse_known_args()
     setup_logging(args.debug)
-    asyncio.run(run_interactive(args))
+
+    if args.bulk_upload:
+        run_bulk_upload(args)
+    else:
+        asyncio.run(run_interactive(args))
 
 
 if __name__ == "__main__":

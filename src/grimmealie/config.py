@@ -46,3 +46,7 @@ class Config:
             "grimmory_password": self.grimmory_password,
         }
         CONFIG_FILE.write_text(json.dumps(data, indent=2))
+
+
+def is_configured(cfg: "Config") -> bool:
+    return bool(cfg.grimmory_url and cfg.mealie_url and cfg.mealie_key)

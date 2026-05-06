@@ -1,6 +1,6 @@
 from PIL import Image
-from grimmealie.cli import _configured, _crop_from
-from grimmealie.config import Config
+from grimmealie.cli import _crop_from
+from grimmealie.config import Config, is_configured
 
 
 def test_configured_false_when_empty():
@@ -8,7 +8,7 @@ def test_configured_false_when_empty():
     cfg.grimmory_url = ""
     cfg.mealie_url = ""
     cfg.mealie_key = ""
-    assert _configured(cfg) is False
+    assert is_configured(cfg) is False
 
 
 def test_configured_false_partial():
@@ -16,7 +16,7 @@ def test_configured_false_partial():
     cfg.grimmory_url = "https://example.com"
     cfg.mealie_url = ""
     cfg.mealie_key = ""
-    assert _configured(cfg) is False
+    assert is_configured(cfg) is False
 
 
 def test_configured_true():
@@ -24,7 +24,7 @@ def test_configured_true():
     cfg.grimmory_url = "https://g.example.com"
     cfg.mealie_url = "https://m.example.com"
     cfg.mealie_key = "key-123"
-    assert _configured(cfg) is True
+    assert is_configured(cfg) is True
 
 
 def test_crop_from_top(tmp_path):
