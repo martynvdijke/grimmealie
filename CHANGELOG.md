@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/martynvdijke/grimmealie/compare/v1.0.3...v1.1.0) (2026-05-06)
+
+
+### Features
+
+* add bulk upload command for existing screenshots ([6206828](https://github.com/martynvdijke/grimmealie/commit/62068283d7d8ae02b447d664feded72609229b8b))
+
 ## [1.0.3](https://github.com/martynvdijke/grimmealie/compare/v1.0.2...v1.0.3) (2026-05-05)
 
 
