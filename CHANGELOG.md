@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/martynvdijke/grimmealie/compare/v1.1.0...v1.2.0) (2026-05-09)
+
+
+### Features
+
+* add --website flag to capture from any URL ([3ed34b2](https://github.com/martynvdijke/grimmealie/commit/3ed34b210962a425aa0425a87d31b90d92bef207))
+
 # [1.1.0](https://github.com/martynvdijke/grimmealie/compare/v1.0.3...v1.1.0) (2026-05-06)
 
 
