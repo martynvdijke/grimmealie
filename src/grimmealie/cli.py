@@ -17,6 +17,7 @@ from .mealie import MealieClient
 from .config import Config, is_configured
 from .preview import preview_image
 from .bulk import run_bulk_upload
+from .webcapture import WebCapture
 
 log = logging.getLogger("grimmealie")
 con = Console()
@@ -121,7 +122,7 @@ def _crop_from(src: Path, dst: Path, region: str) -> None:
     img.crop(boxes[region]).save(dst)
 
 
-async def _capture_loop(cfg, page, args, capture) -> None:
+async def _capture_loop(cfg, page, args, capture, label: str = "") -> None:
     shots_dir = Path("screenshots")
     shots_dir.mkdir(exist_ok=True)
     paths: list[Path] = []
@@ -193,7 +194,8 @@ async def _capture_loop(cfg, page, args, capture) -> None:
             )
             region = REGION_MAP[region_key]
             ts = stamp()
-            full_path = shots_dir / f"{cfg.book_id}_{ts}_full.png"
+            prefix = label or cfg.book_id or "capture"
+            full_path = shots_dir / f"{prefix}_{ts}_full.png"
             await capture.capture_screenshot(page, str(full_path), "full")
 
             if region == "full":
@@ -202,7 +204,7 @@ async def _capture_loop(cfg, page, args, capture) -> None:
                     preview_image(full_path)
                 con.print(f"  [green]✓[/] Captured (full) → [dim]{full_path.name}[/]")
             else:
-                crop_path = shots_dir / f"{cfg.book_id}_{ts}_{region}.png"
+                crop_path = shots_dir / f"{prefix}_{ts}_{region}.png"
                 _crop_from(full_path, crop_path, region)
                 paths.append(crop_path)
                 if not args.no_preview:
@@ -261,6 +263,59 @@ async def run_interactive(args: argparse.Namespace) -> None:
     con.print("  [green]✓[/] Done!")
 
 
+async def run_website_mode(args: argparse.Namespace) -> None:
+    cfg = Config.load()
+
+    if not is_configured(cfg):
+        con.print(
+            "  [yellow]![/] Mealie not configured. Run [bold]grimmealie[/] first to set up."
+        )
+        return
+
+    con.print("  [cyan]→[/] Website capture mode")
+    con.print(f"    Mealie: {cfg.mealie_url}")
+    con.print()
+
+    url = args.website
+    label = WebCapture.label_from_url(url)
+
+    con.print(f"  [cyan]→[/] Opening [bold]{url}[/]...")
+    capture = WebCapture(label=label)
+
+    async with async_playwright() as pw:
+        browser = await pw.chromium.launch(
+            headless=False,
+            args=["--disable-blink-features=AutomationControlled"],
+        )
+        context = await browser.new_context(device_scale_factor=2)
+        page = await context.new_page()
+        await page.set_viewport_size({"width": 1920, "height": 1080})
+
+        try:
+            await page.goto(url, wait_until="domcontentloaded")
+            await page.wait_for_timeout(3000)
+            await _capture_loop(cfg, page, args, capture, label=label)
+
+            while Confirm.ask("Capture another URL?", default=False):
+                url = Prompt.ask("URL", default=url)
+                label = WebCapture.label_from_url(url)
+                capture = WebCapture(label=label)
+                await page.goto(url, wait_until="domcontentloaded")
+                await page.wait_for_timeout(3000)
+                await _capture_loop(cfg, page, args, capture, label=label)
+
+        except Exception as e:
+            con.print(f"  [red]✗[/] {e}")
+            if args.debug:
+                import traceback
+
+                traceback.print_exc()
+        finally:
+            await browser.close()
+
+    con.print("  [green]✓[/] Done!")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(
         description="Import recipes from Grimmory into Mealie"
@@ -276,12 +331,20 @@ def main() -> None:
         action="store_true",
         help="Bulk upload existing screenshots to Mealie",
     )
+    parser.add_argument(
+        "--website",
+        type=str,
+        help="Capture from any website URL instead of Grimmory",
+        metavar="URL",
+    )
 
     args, _ = parser.parse_known_args()
     setup_logging(args.debug)
 
     if args.bulk_upload:
         run_bulk_upload(args)
+    elif args.website:
+        asyncio.run(run_website_mode(args))
     else:
         asyncio.run(run_interactive(args))
 
