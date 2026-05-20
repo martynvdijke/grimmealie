@@ -1,3 +1,10 @@
+## [1.2.2](https://github.com/martynvdijke/grimmealie/compare/v1.2.1...v1.2.2) (2026-05-20)
+
+
+### Bug Fixes
+
+* ensure Gotify notification always fires on release workflow ([e73dc2a](https://github.com/martynvdijke/grimmealie/commit/e73dc2a7669d5cad11f326116b33881d04b37de4))
+
 ## [1.2.1](https://github.com/martynvdijke/grimmealie/compare/v1.2.0...v1.2.1) (2026-05-12)
 
 # [1.2.0](https://github.com/martynvdijke/grimmealie/compare/v1.1.0...v1.2.0) (2026-05-09)
