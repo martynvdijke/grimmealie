@@ -47,5 +47,4 @@
   "pep621": {
     "enabled": true
   },
-  "stalePr": true
 }
