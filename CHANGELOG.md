@@ -1,3 +1,11 @@
+## [1.2.4](https://github.com/martynvdijke/grimmealie/compare/v1.2.3...v1.2.4) (2026-05-25)
+
+
+### Bug Fixes
+
+* ensure lockfile exists before uv sync --locked in CI ([9d1fefe](https://github.com/martynvdijke/grimmealie/commit/9d1fefeb63c45e030a54603c8c14d88239db6920))
+* remove stalePrAge from renovate.json (removed in Renovate v37) ([d4cba0d](https://github.com/martynvdijke/grimmealie/commit/d4cba0d64b0e4a739fb4f02fb0c74d1f8d2fcd7f))
+
 ## [1.2.3](https://github.com/martynvdijke/grimmealie/compare/v1.2.2...v1.2.3) (2026-05-23)
 
 
