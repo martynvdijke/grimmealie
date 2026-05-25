@@ -1,3 +1,10 @@
+## [1.2.5](https://github.com/martynvdijke/grimmealie/compare/v1.2.4...v1.2.5) (2026-05-25)
+
+
+### Bug Fixes
+
+* remove stalePr from renovate.json (no longer valid in Renovate v37) ([f7816b6](https://github.com/martynvdijke/grimmealie/commit/f7816b6bd948308ef840c5560ddd3bb5ee261ee4))
+
 ## [1.2.4](https://github.com/martynvdijke/grimmealie/compare/v1.2.3...v1.2.4) (2026-05-25)
 
 
