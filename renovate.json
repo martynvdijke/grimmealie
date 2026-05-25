@@ -9,22 +9,34 @@
   ],
   "automergeType": "pr",
   "dependencyDashboard": true,
-  "ignorePaths": ["test/**"],
-  "ignorePresets": [":ignoreModulesAndTests"],
+  "ignorePaths": [
+    "test/**"
+  ],
+  "ignorePresets": [
+    ":ignoreModulesAndTests"
+  ],
   "platform": "github",
   "platformAutomerge": true,
   "prCreation": "immediate",
   "prHourlyLimit": 10,
   "rebaseWhen": "behind-base-branch",
   "configMigration": true,
-  "repositories": ["martynvdijke/grimmealie"],
+  "repositories": [
+    "martynvdijke/grimmealie"
+  ],
   "timezone": "UTC+1",
   "lockFileMaintenance": {
     "enabled": true
   },
   "packageRules": [
     {
-      "matchUpdateTypes": ["major", "minor", "patch", "pin", "digest"],
+      "matchUpdateTypes": [
+        "major",
+        "minor",
+        "patch",
+        "pin",
+        "digest"
+      ],
       "matchCurrentVersion": "!/^0/",
       "automerge": true
     }
@@ -34,5 +46,7 @@
   },
   "pep621": {
     "enabled": true
-  }
+  },
+  "stalePr": true,
+  "stalePrAge": 7
 }
