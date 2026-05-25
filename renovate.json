@@ -24,7 +24,7 @@
   "repositories": [
     "martynvdijke/grimmealie"
   ],
-  "timezone": "UTC+1",
+  "timezone": "Europe/Amsterdam",
   "lockFileMaintenance": {
     "enabled": true
   },
