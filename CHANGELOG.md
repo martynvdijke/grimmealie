@@ -1,3 +1,10 @@
+## [1.2.6](https://github.com/martynvdijke/grimmealie/compare/v1.2.5...v1.2.6) (2026-06-03)
+
+
+### Bug Fixes
+
+* invalid timezone UTC+1, use Europe/Amsterdam instead ([ba4f45e](https://github.com/martynvdijke/grimmealie/commit/ba4f45e88608308e5522aa49ceaccbbfb9ab76cd))
+
 ## [1.2.5](https://github.com/martynvdijke/grimmealie/compare/v1.2.4...v1.2.5) (2026-05-25)
 
 
