@@ -12,6 +12,11 @@ jobs:
   ci:
     uses: ./.github/workflows/ci.yaml
     secrets: inherit
+    permissions:
+      contents: read
+      actions: read
+      pull-requests: read
+      checks: read
 
   release:
     needs: ci

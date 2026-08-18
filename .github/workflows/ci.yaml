@@ -13,7 +13,9 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+      actions: read
       pull-requests: read
+      checks: read
 
     steps:
       - name: Checkout Repository
@@ -41,10 +43,10 @@ jobs:
 
   otel:
     permissions:
-      contents: read # Required. To access the private repository
-      actions: read # Required. To read workflow runs
-      pull-requests: read # Optional. To read PR labels
-      checks: read # Optional. To read run annotations
+      contents: read
+      actions: read
+      pull-requests: read
+      checks: read
     if: always()
     name: OpenTelemetry Export Trace
     runs-on: ubuntu-latest
