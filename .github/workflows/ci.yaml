@@ -11,9 +11,11 @@ on:
 jobs:
   ci:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
 
     steps:
-
       - name: Checkout Repository
         uses: actions/checkout@v7
 
@@ -36,6 +38,7 @@ jobs:
 
       - name: Run invoke all
         run: uv run invoke all
+
   otel:
     permissions:
       contents: read # Required. To access the private repository
@@ -52,4 +55,4 @@ jobs:
         with:
           otlpEndpoint: ${{ secrets.OTLP_ENDPOINT }}
           otlpHeaders: ${{ secrets.OTLP_HEADERS }}
-          otelToken: ${{ secrets.OTEL_TOKEN }}
+          githubToken: ${{ secrets.OTEL_TOKEN }}
