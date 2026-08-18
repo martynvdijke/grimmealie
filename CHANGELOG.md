@@ -1,3 +1,19 @@
+# [1.3.0](https://github.com/martynvdijke/grimmealie/compare/v1.2.5...v1.3.0) (2026-08-18)
+
+
+### Bug Fixes
+
+* invalid timezone UTC+1, use Europe/Amsterdam instead ([ba4f45e](https://github.com/martynvdijke/grimmealie/commit/ba4f45e88608308e5522aa49ceaccbbfb9ab76cd))
+* release procedure ([d0417be](https://github.com/martynvdijke/grimmealie/commit/d0417bed16b053ae238195034dd07e354cb630b7))
+* release procedure ([1320db3](https://github.com/martynvdijke/grimmealie/commit/1320db36781369f891be13e669e97253b378b3df))
+* rename githubToken to otelToken for otel-cicd-action@v4 ([7013578](https://github.com/martynvdijke/grimmealie/commit/7013578aa5ab7189a1bef9275dc0bbf357b980c8))
+* use githubToken instead of otelToken for otel-cicd-action@v4 ([6675b23](https://github.com/martynvdijke/grimmealie/commit/6675b23c02c9ef04d9b5f1608fa4011f578f19d8))
+
+
+### Features
+
+* add otlpAuthorization input for Bearer auth ([ee14361](https://github.com/martynvdijke/grimmealie/commit/ee1436130584012ba631463cab7980e5ffb3ab2a))
+
 ## [1.2.6](https://github.com/martynvdijke/grimmealie/compare/v1.2.5...v1.2.6) (2026-06-03)
 
 
