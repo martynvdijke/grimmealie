@@ -5,3 +5,5 @@ screenshots/
 grimmealie-config.json
 .pytest-cache/
 src/grimmealie.egg-info
+openspec/
+.opencode/
