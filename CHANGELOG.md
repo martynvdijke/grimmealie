@@ -1,3 +1,10 @@
+## [1.3.2](https://github.com/martynvdijke/grimmealie/compare/v1.3.1...v1.3.2) (2026-08-28)
+
+
+### Bug Fixes
+
+* **ci:** remove unsupported --diff flag from pinact ([c6def7c](https://github.com/martynvdijke/grimmealie/commit/c6def7ccf674c3b09f9f898527263288254266bf))
+
 ## [1.3.1](https://github.com/martynvdijke/grimmealie/compare/v1.3.0...v1.3.1) (2026-08-24)
 
 # [1.3.0](https://github.com/martynvdijke/grimmealie/compare/v1.2.5...v1.3.0) (2026-08-18)
