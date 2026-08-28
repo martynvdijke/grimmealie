@@ -1,3 +1,11 @@
+## [1.3.3](https://github.com/martynvdijke/grimmealie/compare/v1.3.2...v1.3.3) (2026-08-28)
+
+
+### Bug Fixes
+
+* **ci:** make pinact check non-blocking ([e7ddf45](https://github.com/martynvdijke/grimmealie/commit/e7ddf45a7a40d8fd5498ddb8d44dedda87cf3745))
+* **ci:** update actionlint to v1.7.12 (v1 tag removed upstream) ([eb1b38f](https://github.com/martynvdijke/grimmealie/commit/eb1b38fc8cd48c0b42f02f9748ddc7f3ece9139c))
+
 ## [1.3.2](https://github.com/martynvdijke/grimmealie/compare/v1.3.1...v1.3.2) (2026-08-28)
 
 
