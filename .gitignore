@@ -7,3 +7,6 @@ grimmealie-config.json
 src/grimmealie.egg-info
 openspec/
 .opencode/
+
+# Zensical build output
+site/
