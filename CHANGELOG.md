@@ -1,3 +1,5 @@
+## [1.3.18](https://github.com/martynvdijke/grimmealie/compare/v1.3.17...v1.3.18) (2026-10-10)
+
 ## [1.3.17](https://github.com/martynvdijke/grimmealie/compare/v1.3.16...v1.3.17) (2026-10-09)
 
 ## [1.3.16](https://github.com/martynvdijke/grimmealie/compare/v1.3.15...v1.3.16) (2026-10-06)
