@@ -1,3 +1,10 @@
+## [1.3.24](https://github.com/martynvdijke/grimmealie/compare/v1.3.23...v1.3.24) (2026-10-19)
+
+
+### Bug Fixes
+
+* make keyring import resolvable in CI ([a968209](https://github.com/martynvdijke/grimmealie/commit/a9682092401fb8c5bd2645c6ebdfb6c9813ad65c))
+
 ## [1.3.23](https://github.com/martynvdijke/grimmealie/compare/v1.3.22...v1.3.23) (2026-10-15)
 
 ## [1.3.22](https://github.com/martynvdijke/grimmealie/compare/v1.3.21...v1.3.22) (2026-10-14)
