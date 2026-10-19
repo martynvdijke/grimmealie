@@ -8,6 +8,7 @@ dependencies = [
     "httpx>=0.25",
     "Pillow>=10.0",
     "rich>=13.0",
+    "keyring>=24.0",
 ]
 
 [project.scripts]
