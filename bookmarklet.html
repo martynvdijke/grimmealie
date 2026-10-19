@@ -38,7 +38,12 @@
     <label for="mealieUrl">Mealie URL</label>
     <input type="url" id="mealieUrl" placeholder="https://mealie.example.com" />
     <label for="apiKey">Mealie API Key</label>
-    <input type="password" id="apiKey" placeholder="Your Mealie API key" />
+    <input type="password" id="apiKey" placeholder="Your Mealie API key" autocomplete="off" />
+    <p class="hint" style="color:#b45309;margin-top:0.5rem">
+      ⚠️ The key is embedded in the generated bookmarklet and stored in your
+      browser's bookmarks. Use a dedicated, short-lived Mealie API token where
+      possible, and revoke it when you are done.
+    </p>
     <button class="btn" onclick="generate()">Generate Bookmarklet</button>
 
     <div id="result">
@@ -68,6 +73,7 @@
       const mealieUrl = document.getElementById('mealieUrl').value.trim().replace(/\/+$/, '');
       const apiKey = document.getElementById('apiKey').value.trim();
       if (!mealieUrl || !apiKey) { alert('Enter both fields.'); return; }
+      if (!confirm('Security warning:\n\nThe API key will be embedded in the bookmarklet and saved in your browser bookmarks.\n\nPrefer a dedicated, short-lived token and revoke it when finished.\n\nContinue?')) return;
 
       const u = JSON.stringify(mealieUrl);
       const k = JSON.stringify(apiKey);

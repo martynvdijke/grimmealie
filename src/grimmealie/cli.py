@@ -60,22 +60,27 @@ def _setup(cfg) -> None:
     )
     con.print(
         Panel(
-            "[bold yellow]Credentials stored in plain text[/]\n"
-            "Mealie API key and Grimmory password saved in [bold]grimmealie-config.json[/] "
-            "(gitignored — keep it secure).",
+            "[bold green]Credentials are stored securely[/]\n"
+            "Secrets are written to [bold]grimmealie-config.json[/] with [bold]0600[/] "
+            "permissions (owner-only). You can instead set "
+            "[bold]GRIMMEALIE_MEALIE_KEY[/] / [bold]GRIMMEALIE_GRIMMORY_PASSWORD[/] "
+            "or use the OS keyring service [bold]grimmealie[/].",
             box=box.SQUARE,
-            border_style="yellow",
+            border_style="green",
         )
     )
     con.print()
 
     cfg.grimmory_url = Prompt.ask("Grimmory URL", default=cfg.grimmory_url)
     cfg.mealie_url = Prompt.ask("Mealie URL", default=cfg.mealie_url)
-    cfg.mealie_key = Prompt.ask(
-        "Mealie API Key",
-        default=mask(cfg.mealie_key) if cfg.mealie_key else "",
+    new_key = Prompt.ask(
+        "Mealie API Key"
+        + (" (leave blank to keep existing)" if cfg.mealie_key else ""),
+        default="",
         password=True,
     )
+    if new_key:
+        cfg.mealie_key = new_key
     cfg.grimmory_login = Confirm.ask(
         "Grimmory login required", default=cfg.grimmory_login
     )
@@ -84,11 +89,14 @@ def _setup(cfg) -> None:
         cfg.grimmory_username = Prompt.ask(
             "Grimmory username", default=cfg.grimmory_username
         )
-        cfg.grimmory_password = Prompt.ask(
-            "Grimmory password",
-            default=mask(cfg.grimmory_password) if cfg.grimmory_password else "",
+        new_password = Prompt.ask(
+            "Grimmory password"
+            + (" (leave blank to keep existing)" if cfg.grimmory_password else ""),
+            default="",
             password=True,
         )
+        if new_password:
+            cfg.grimmory_password = new_password
 
     cfg.save()
     con.print("  [green]✓[/] Saved to grimmealie-config.json\n")
