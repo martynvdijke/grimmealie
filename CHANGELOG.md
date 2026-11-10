@@ -1,3 +1,10 @@
+## [1.3.35](https://github.com/martynvdijke/grimmealie/compare/v1.3.34...v1.3.35) (2026-11-10)
+
+
+### Bug Fixes
+
+* **renovate:** disable platform automerge so Renovate merges green PRs itself ([8e4e265](https://github.com/martynvdijke/grimmealie/commit/8e4e265b65081bdc3ac4e582793a11f4ee2b907f))
+
 ## [1.3.34](https://github.com/martynvdijke/grimmealie/compare/v1.3.33...v1.3.34) (2026-11-09)
 
 ## [1.3.33](https://github.com/martynvdijke/grimmealie/compare/v1.3.32...v1.3.33) (2026-11-03)
